@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { useData } from '../../../hooks';
 import { Colors } from '../../../constants/Colors';
 import { ThemedText } from '../../../components/ui/ThemedText';
@@ -13,6 +13,13 @@ export default function DebtsScreen() {
   const { debts } = useData();
   const router = useRouter();
   const [filter, setFilter] = useState<'all' | 'lent' | 'borrowed'>('all');
+
+  // Reset filter to 'all' (Active Debts) when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      setFilter('all');
+    }, [])
+  );
 
   const filteredData = debts.filter(d => {
     if (filter === 'all') return d.status === 'active'; // default show active

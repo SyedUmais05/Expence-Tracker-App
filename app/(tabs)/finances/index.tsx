@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { useData } from '../../../hooks';
 import { Colors } from '../../../constants/Colors';
 import { ThemedText } from '../../../components/ui/ThemedText';
@@ -13,6 +13,13 @@ export default function FinancesScreen() {
   const { transactions, deleteTransaction } = useData();
   const router = useRouter();
   const [filter, setFilter] = useState<'all' | 'income' | 'expense'>('all');
+
+  // Reset filter when screen comes into focus (e.g. returning from Add screen)
+  useFocusEffect(
+    useCallback(() => {
+      setFilter('all');
+    }, [])
+  );
 
   const filteredData = transactions.filter(t => {
     if (filter === 'all') return true;
@@ -40,7 +47,7 @@ export default function FinancesScreen() {
           <ThemedText style={styles.category}>{item.category}</ThemedText>
           <ThemedText variant="caption">{formatDate(item.date)} • {item.note || 'No note'}</ThemedText>
         </View>
-        <View style={{ alignItems: 'flex-end' }}>
+        <View style={{ alignItems: 'flex-end', paddingBottom: 16 }}>
              <ThemedText style={{ 
                 color: item.type === 'income' ? Colors.income : Colors.expense,
                 fontWeight: 'bold',
