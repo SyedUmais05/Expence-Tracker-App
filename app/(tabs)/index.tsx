@@ -43,8 +43,12 @@ export default function HomeScreen() {
           <ThemedText variant="caption" style={{ color: '#E0E0E0' }}>Welcome back,</ThemedText>
           <ThemedText variant="title" style={{ color: '#FFF' }}>{user?.username}</ThemedText>
         </View>
-        <TouchableOpacity onPress={() => logout()} style={styles.logoutBtn}>
-          <FontAwesome name="sign-out" size={20} color="#FFF" />
+        <TouchableOpacity onPress={() => router.push('/profile')} style={styles.profileBtn}>
+          <View style={styles.avatarSmall}>
+             <ThemedText style={styles.avatarTextSmall}>
+                 {user?.username?.charAt(0).toUpperCase() || 'U'}
+             </ThemedText>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -160,10 +164,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  logoutBtn: {
-    padding: 8,
+  profileBtn: {
+    padding: 4,
     backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 8,
+    borderRadius: 25,
+  },
+  avatarSmall: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: '#FFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  avatarTextSmall: {
+      color: Colors.primary,
+      fontWeight: 'bold',
+      fontSize: 18,
   },
   content: {
     flex: 1,

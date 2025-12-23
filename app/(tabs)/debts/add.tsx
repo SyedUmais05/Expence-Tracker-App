@@ -59,7 +59,7 @@ export default function AddDebtScreen() {
       <View style={styles.form}>
         <Input
             label="Person Name"
-            placeholder="e.g. John Doe"
+            placeholder="e.g. Umais"
             value={person}
             onChangeText={setPerson}
         />

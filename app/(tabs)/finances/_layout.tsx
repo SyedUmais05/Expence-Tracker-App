@@ -10,7 +10,7 @@ export default function FinancesLayout() {
   
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor={Colors.primary} translucent={false} />
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: Colors.primary },

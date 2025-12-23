@@ -7,6 +7,7 @@ import { ThemedText } from '../../../components/ui/ThemedText';
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { formatCurrency, formatDate } from '../../../utils/formatting';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function DebtDetailScreen() {
     const { id } = useLocalSearchParams();
@@ -75,6 +76,21 @@ export default function DebtDetailScreen() {
                     <ThemedText variant="caption" style={{ marginTop: 4 }}>
                         of {formatCurrency(debt.totalAmount)}
                     </ThemedText>
+
+                    {/* Debt Note */}
+                     {debt.note && (
+                        <View style={{ marginTop: 8, paddingHorizontal: 16, alignItems: 'center' }}>
+                            <ThemedText style={{ 
+                                textAlign: 'center', 
+                                color: Colors.textSecondary,
+                                fontSize: 16,
+                                fontWeight: '500',
+                                opacity: 0.8
+                            }}>
+                                {debt.note}
+                            </ThemedText>
+                        </View>
+                    )}
                 </View>
 
                 {debt.status === 'active' && (
